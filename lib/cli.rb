@@ -59,4 +59,8 @@ class CLI
         API.scrape_plant_details(plant)
     end
 
+    def turn_page
+        i += 1
+    end
+
 end

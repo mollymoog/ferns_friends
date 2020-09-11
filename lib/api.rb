@@ -34,4 +34,10 @@ class API
     # end
   end
 
+  def self.page
+    # &page=2
+    #adds to end of url
+  end
+
+
 end
