@@ -4,8 +4,12 @@ class CLI
 
     def run
         puts "Welcome to Fern's Friends, lets meet some other plants"
-        API.scrape_plants
+        scrape_plants
         menu
+    end
+
+    def scrape_plants
+        API.scrape_plants
     end
 
     def menu
@@ -13,14 +17,41 @@ class CLI
         puts "pick a number to learn more"
         input = gets.chomp
 
-        if 0 < input.to_i && input.to_i <= 20
+        if 0 < input.to_i && input.to_i <= Plants.all.count
             plant = Plants.all[input.to_i - 1]
             load_plant(plant)
 
-            puts "You've selected #{plant.name}, more scientifically referred to as '#{plant.scientific_name}'.'"
+            puts "You've selected #{plant.name}, scientifically referred to as '#{plant.scientific_name}'.'"
+            line_space(1)
             puts "What else would you like to know?"
-            puts ""
+            puts "to le"
+            line_space(1)
             plant_names(plant)
+            line_space(1)
+            puts "would you like to see another plant? (y/n)"
+            input = gets.chomp
+            if input == "y"
+                puts "returning to menu ..."
+                line_space(1)
+                menu
+            elsif input == "n"
+                puts "see you next time"
+                puts "
+                        ,@@@@@@@,
+                ,,,.   ,@@@@@@/@@,  .oo8888o.
+             ,&%%&%&&%,@@@@@/@@@@@@,8888\88/8o
+            ,%&\%&&%&&%,@@@\@@@/@@@88\88888/88'
+            %&&%&%&/%&&%@@\@@/ /@@@88888\88888'
+            %&&%/ %&%%&&@@\ V /@@' `88\8 `/88'
+            `&%\ ` /%&'    |.|        \ '|8'
+                |o|        | |         | |
+                |.|        | |         | |
+             \\/ ._\//_/__/  ,\_//__\\/.  \_//__/_"
+                exit
+            else
+                puts ""
+            
+            end
         else
             puts "That number isn't on this page."
             puts "If you'd like to see the next page, type 'next'"
@@ -28,6 +59,8 @@ class CLI
             page_input = gets.chomp
                 if page_input == "next"
                     puts "turning page" #method to turn page
+                    page_next
+                    menu
                 else
                     menu
                 end
@@ -42,7 +75,9 @@ class CLI
 
     def plant_names (plant)
         puts "what language would you like to translate to :"
+        line_space(1)
         puts "type 'spanish', 'french', or 'english' to see the common names in that language"
+        line_space(2)
         lang_input = gets.chomp.downcase
 
         case lang_input
@@ -59,8 +94,21 @@ class CLI
         API.scrape_plant_details(plant)
     end
 
-    def turn_page
-        i += 1
+    def page_next
+        Plants.all.clear
+        API.page_next
+        API.scrape_plants
+    end
+
+    def page_back
+        Plants.all.clear
+        API.page_back
+        API.scrape_plants
+    end
+
+    def line_space (lines)
+        line = lines.to_i
+        line.times { puts ""}
     end
 
 end
