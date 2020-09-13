@@ -39,7 +39,11 @@ class API
   end
 
   def self.page_back
-    @@page_number -= 1
+    if @@page_number < 2
+      @@page_number
+    else
+      @@page_number -= 1
+    end
   end
 
   def self.page
