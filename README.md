@@ -1,3 +1,3 @@
-# Fern's Friends
+# Fern's Forest
 
-## find a new plant friend
+### Learn how to refer to plants in spanish, french, and english
